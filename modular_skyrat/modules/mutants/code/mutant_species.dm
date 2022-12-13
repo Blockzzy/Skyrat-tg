@@ -1,9 +1,8 @@
-#define REGENERATION_DELAY 5 SECONDS  // After taking damage, how long it takes for automatic regeneration to begin
+#define REGENERATION_DELAY (5 SECONDS)  // After taking damage, how long it takes for automatic regeneration to begin
 
 /datum/species/mutant
 	name = "High-Functioning mutant"
 	id = SPECIES_MUTANT
-	say_mod = "moans"
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	eyes_icon = 'modular_skyrat/modules/mutants/icons/mutant_eyes.dmi'
 	species_traits = list(
@@ -223,6 +222,7 @@
 /obj/item/mutant_hand/proc/check_feast(mob/living/target, mob/living/user)
 	if(target.stat == DEAD)
 		var/hp_gained = target.maxHealth
+		target.investigate_log("has been feasted upon by the mutant [user].", INVESTIGATE_DEATHS)
 		target.gib()
 		// zero as argument for no instant health update
 		user.adjustBruteLoss(-hp_gained, 0)

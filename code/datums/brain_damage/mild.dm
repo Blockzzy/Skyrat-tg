@@ -54,7 +54,7 @@
 	if(DT_PROB(1.5, delta_time))
 		owner.emote("drool")
 	else if(owner.stat == CONSCIOUS && DT_PROB(1.5, delta_time))
-		owner.say(pick_list_replacements(BRAIN_DAMAGE_FILE, "brain_damage"), forced = "brain damage")
+		owner.say(pick_list_replacements(BRAIN_DAMAGE_FILE, "brain_damage"), forced = "brain damage", filterproof = TRUE)
 
 /datum/brain_trauma/mild/dumbness/on_lose()
 	REMOVE_TRAIT(owner, TRAIT_DUMB, TRAUMA_TRAIT)
@@ -178,8 +178,8 @@
 			to_chat(owner, span_warning("[pick("You have a coughing fit!", "You can't stop coughing!")]"))
 			owner.Immobilize(20)
 			owner.emote("cough")
-			addtimer(CALLBACK(owner, /mob/.proc/emote, "cough"), 6)
-			addtimer(CALLBACK(owner, /mob/.proc/emote, "cough"), 12)
+			addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/, emote), "cough"), 6)
+			addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/, emote), "cough"), 12)
 		owner.emote("cough")
 	..()
 
